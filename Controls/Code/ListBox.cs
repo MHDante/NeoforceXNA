@@ -130,7 +130,7 @@ namespace TomShane.Neoforce.Controls
 
         #endregion
 
-        #region //// Construstors //////
+        #region //// Constructors //////
 
         ////////////////////////////////////////////////////////////////////////////       
         public ListBox(Manager manager)

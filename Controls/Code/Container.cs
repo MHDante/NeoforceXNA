@@ -49,11 +49,9 @@ namespace TomShane.Neoforce.Controls
     private StatusBar statusBar;
     private bool autoScroll = false;
     private Control defaultControl = null;   
-
-    /// <summary>
-    /// Scroll by PageSize (true) or StepSize (false)
-    /// </summary>
     private bool scrollAlot = true;
+    private bool showVertScrollBar = false;
+    private bool showHorzScrollBar = false;
     ////////////////////////////////////////////////////////////////////////////
 
     #endregion   
@@ -190,8 +188,14 @@ namespace TomShane.Neoforce.Controls
     /// </summary>
     public virtual bool ScrollAlot
     {
-        get { return this.scrollAlot; }
-        set { this.scrollAlot = value; }
+        get 
+        {
+            return this.scrollAlot; 
+        }
+        set 
+        {
+            this.scrollAlot = value; 
+        }
     }
  
     /// <summary>
@@ -199,7 +203,10 @@ namespace TomShane.Neoforce.Controls
     /// </summary>
     protected virtual ScrollBar VerticalScrollBar
     {
-        get { return this.sbVert; }
+        get 
+        {
+            return this.sbVert; 
+        }
     }
  
     /// <summary>
@@ -207,9 +214,43 @@ namespace TomShane.Neoforce.Controls
     /// </summary>
     protected virtual ScrollBar HorizontalScrollBar
     {
-        get { return this.sbHorz; }
+        get 
+        {
+            return this.sbHorz; 
+        }
     }
 
+    /// <summary>
+    /// If enabled, Verttical ScrollBar will always show.
+    /// </summary>
+    public virtual bool ShowVertScrollBar
+    {
+        get 
+        {
+            return this.showVertScrollBar; 
+        }
+        set 
+        {
+            this.showVertScrollBar = value;
+            CalcScrolling();
+        }
+    }
+
+    /// <summary>
+    /// If enabled, Horizontal ScrollBar will always show.
+    /// </summary>
+    public virtual bool ShowHorzScrollBar
+    {
+        get 
+        {
+            return this.showHorzScrollBar; 
+        }
+        set 
+        {
+            this.showHorzScrollBar = value;
+            CalcScrolling();
+        }
+    }
     #endregion
     
  	  #region //// Constructors //////
@@ -390,7 +431,7 @@ namespace TomShane.Neoforce.Controls
       if (sbVert != null && autoScroll)
       {                
         bool vis = sbVert.Visible;        
-        sbVert.Visible = ClientArea.VirtualHeight > ClientArea.ClientHeight;                
+        sbVert.Visible = ClientArea.VirtualHeight > ClientArea.ClientHeight || showVertScrollBar;                
         if (ClientArea.VirtualHeight <= ClientArea.ClientHeight) sbVert.Value = 0;
         
         if (vis != sbVert.Visible)
@@ -417,7 +458,7 @@ namespace TomShane.Neoforce.Controls
       if (sbHorz != null && autoScroll)
       {
         bool vis = sbHorz.Visible;
-        sbHorz.Visible = ClientArea.VirtualWidth > ClientArea.ClientWidth;     
+        sbHorz.Visible = ClientArea.VirtualWidth > ClientArea.ClientWidth || showHorzScrollBar;     
         if (ClientArea.VirtualWidth <= ClientArea.ClientWidth) sbHorz.Value = 0;
         
         if (vis != sbHorz.Visible)

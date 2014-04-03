@@ -77,8 +77,9 @@ namespace TomShane.Neoforce.Controls
     private bool shadow = true;
     private bool captionVisible = true;    
     private bool borderVisible = true;
+    private bool transparentClientArea = false;  
     private byte oldAlpha = 255;
-    private byte dragAlpha = 200;  
+    private byte dragAlpha = 200;
     ////////////////////////////////////////////////////////////////////////////
 
     #endregion
@@ -99,12 +100,20 @@ namespace TomShane.Neoforce.Controls
       set { icon = value; }
     }
     ////////////////////////////////////////////////////////////////////////////
-    
+
     ////////////////////////////////////////////////////////////////////////////
-    public virtual bool Shadow 
-    { 
-      get { return shadow; } 
-      set { shadow = value; } 
+    public virtual bool Shadow
+    {
+        get { return shadow; }
+        set { shadow = value; }
+    }
+    ////////////////////////////////////////////////////////////////////////////      
+
+    ////////////////////////////////////////////////////////////////////////////
+    public virtual bool TransparentClientArea
+    {
+        get { return transparentClientArea; }
+        set { transparentClientArea = value; }
     }
     ////////////////////////////////////////////////////////////////////////////      
 
@@ -329,7 +338,10 @@ namespace TomShane.Neoforce.Controls
         c1 = l1.Text.Colors.Enabled;
       }
 
-      renderer.DrawLayer(Skin.Layers[lrWindow], rect, Skin.Layers[lrWindow].States.Enabled.Color, Skin.Layers[lrWindow].States.Enabled.Index);
+      if (!transparentClientArea)
+      {
+          renderer.DrawLayer(Skin.Layers[lrWindow], rect, Skin.Layers[lrWindow].States.Enabled.Color, Skin.Layers[lrWindow].States.Enabled.Index);
+      }
       
       if (borderVisible)
       {

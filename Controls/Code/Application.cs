@@ -370,8 +370,9 @@ namespace TomShane.Neoforce.Controls
             if (Manager.RenderTarget != null)
             {
                 //These steps are already done by the manager on Graphics Device Reset.
-                //Manager.RenderTarget.Dispose();
-                //Manager.RenderTarget = CreateRenderTarget(); 
+                Manager.RenderTarget.Dispose();
+                Manager.RenderTarget = CreateRenderTarget(); 
+                //However, they still need to be done here in order to allow display resizing.
                 Manager.Input.InputOffset = new InputOffset(0, 0, Manager.ScreenWidth / (float)Manager.TargetWidth, Manager.ScreenHeight / (float)Manager.TargetHeight);
             }
 
